@@ -53,7 +53,10 @@ class Scheduler:
             if itm.url == "":
                 self.queue_items.task_done()
                 continue
-            callback(itm)
+            try:
+                callback(itm)
+            except Exception as e:
+                self.log.warning("Exception {}", e)
             self.queue_items.task_done()
         self.log.debug("Item loop finished")
 

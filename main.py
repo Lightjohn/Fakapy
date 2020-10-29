@@ -14,7 +14,7 @@ def parse(request: Request):
         yield Request(f"https://realpython.com{i}")
     yield Item("TEST11")
 
-@app.parseItem
+@app.parse_item
 def parse_item(itm: Item):
     logger.info("GOOD ITEM {}", itm)
 
