@@ -2,3 +2,7 @@ loguru
 aiohttp
 cchardet
 aiodns
+beautifulsoup4
+lxml
+requests
+Flask

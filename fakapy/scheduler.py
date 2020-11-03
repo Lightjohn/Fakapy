@@ -6,6 +6,7 @@ import loguru
 
 from fakapy.item import Item
 from fakapy.request import Request
+from fakapy.response import Response
 
 
 class Scheduler:
@@ -37,9 +38,9 @@ class Scheduler:
             try:
                 async with async_timeout.timeout(10):
                     async with self.session.get(req.url) as response:
-                        req.text = await response.text()
-                        req.response = response
-                        callback(req)
+                        text = await response.text()
+                        res = Response(response, text)
+                        callback(res)
             except Exception as e:
                 self.log.warning("Exception {}", e)
             self.queue_requests.task_done()

@@ -1,22 +1,22 @@
-from fakapy import Fakapy, Request, Item
-from fakapy import logger
+from fakapy import Fakapy, Request, Response, Item, logger
 
 app = Fakapy()
 
 
 @app.parse
-def parse(request: Request):
-    logger.info("Parsing func {}", request)
-    logger.info("TEXT len: {}", len(request.text))
+def parse(response: Response):
+    logger.info("Parsing func {}", response)
+    logger.info("TEXT len: {}", len(response.text))
 
-    for i in request.xpath('//div[@class="card border-0"]/a/@href'):
+    for i in response.xpath('//div[@class="card border-0"]/a/@href'):
         logger.info("URL https://realpython.com{}", i)
         yield Request(f"https://realpython.com{i}")
     yield Item("TEST11")
 
+
 @app.parse_item
-def parse_item(itm: Item):
-    logger.info("GOOD ITEM {}", itm)
+def parse_item(item: Item):
+    logger.info("GOOD ITEM {}", item)
 
 
 # @app.parse
